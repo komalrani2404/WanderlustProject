@@ -13,7 +13,7 @@ const path=require("path");
 const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
 const ExpressError=require("./utils/ExpressError.js");
-// const Review=require("./models/review.js");
+
 
 const session=require("express-session");
 const MongoStore = require('connect-mongo');
@@ -26,7 +26,7 @@ const listingRouter = require("./routes/listing.js")
 const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
 
-// const mongo_url="mongodb://127.0.0.1:27017/wanderlust";
+
 const dbUrl = process.env.ATLASTDB_URL;
 
 main().then(()=>{
@@ -87,37 +87,16 @@ app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
     res.locals.currUser=req.user;
-    // console.log(res.locals.currUser._id);
-    // console.log(req);
-    // console.log(req.user); 
     next();
 })
+
 
 app.get("/",(req,res)=>{ 
     res.send("hi ,i am root");
 });
 
-// app (req, res , next)=>{
-    // console.log(req.user);
-    // if(!req.isAuthenticated()){
-        // req.flash("error","you must be logged in");
-        // return res.redirect("/login");
-    // }
-//    
-    // next();
-// }
-// 
-// 
-// app.get("/demouser",async(req,res)=>{
-        // let fackUser=new User({
-            // email: "pinki@gmail.com",
-            // username: "sheha",
-        // });
-// 
-    //    let registeredUser=await User.register(fackUser,"pinki");
-    //    res.send(registeredUser);
-// })
-// 
+
+
 app.use("/listings",listingRouter);
 
 app.use("/listings/:id/reviews",reviewRouter);
